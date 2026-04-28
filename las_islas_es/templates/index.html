@@ -1,13 +1,19 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'CSS/las-islas-es.css' %}">
-    <title>Document</title>
-</head>
-<body>
-    <h1 class="color">test</h1>
-</body>
-</html>
+
+{% block content %}
+<h1 class="color">Welcome to the test page.</h1>
+<script>
+  document.querySelectorAll('.reveal-text-col h2').forEach(h2 => {
+    h2.innerHTML = h2.textContent.trim().split(/\s+/)
+      .map(w => `<span class="reveal-word">${w}</span>`).join(' ');
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal-active');
+     else {
+      e.target.classList.remove('reveal-active');
+    } });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.reveal-card').forEach(c => obs.observe(c));
+</script>
+{% endblock %}
