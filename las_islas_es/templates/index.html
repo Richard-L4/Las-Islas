@@ -3,16 +3,72 @@
 
 {% block content %}
 <h1 class="color">Welcome to the test page.</h1>
+
+<!-- Card 1 — image TOP RIGHT -->
+<div class="reveal-card">
+  <div class="reveal-text-col">
+    <h2>Dominican Republic</h2>
+    <p>The Dominican Republic occupies the eastern two-thirds of Hispaniola in the Caribbean. Known for stunning beaches
+      like Punta Cana and rich merengue music, it blends Spanish colonial history with vibrant Afro-Caribbean culture.
+      Santo Domingo, its capital, holds the Americas' oldest European settlement. Sugar, tourism, and baseball define
+      its modern identity.</p>
+    <a class="reveal-btn" href="">Read more</a>
+  </div>
+  <div class="reveal-image-col">
+    <img src="{% static 'images/Dem Rep-3.jpg' %}" alt="...">
+  </div>
+</div>
+
+<!-- Carousel Wrapper -->
+<div id="carouselWrapper">
+  <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'images/Cancun-4.jpg' %}" class="d-block w-100" alt="..">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Carosel-2.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{% static 'images/Carosel-3.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<!-- Card 3 — image BOTTOM RIGHT -->
+<div class="reveal-card">
+  <div class="reveal-text-col">
+    <h2>Puerto Rica</h2>
+    <p>A US territory with a Spanish soul. Old San Juan's colourful colonial streets, El Yunque rainforest, and Condado
+      beach combine Caribbean warmth with American convenience and extraordinary food culture.</p>
+    <a class="reveal-btn" href="">Read more</a>
+  </div>
+  <div class="reveal-image-col">
+    <img src="{% static 'images/Puerto Rico-2.jpg' %}" alt="...">
+  </div>
+</div>
+
 <script>
   document.querySelectorAll('.reveal-text-col h2').forEach(h2 => {
     h2.innerHTML = h2.textContent.trim().split(/\s+/)
       .map(w => `<span class="reveal-word">${w}</span>`).join(' ');
   });
   const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('reveal-active');
-     else {
-      e.target.classList.remove('reveal-active');
-    } });
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('reveal-active');
+      else {
+        e.target.classList.remove('reveal-active');
+      }
+    });
   }, { threshold: 0.25 });
   document.querySelectorAll('.reveal-card').forEach(c => obs.observe(c));
 </script>
