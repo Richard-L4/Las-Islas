@@ -5,4 +5,19 @@
 <p>
     <a class="color-return" href="{% url 'index' %}">Return Home</a>
 </p>
+
+<div class="form-map-container">
+    <section id="form">
+        <form id="contact-form" method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ form.username.errors }}
+            {{ form.email.errors }}
+            {{ form.password1.errors }}
+            {{ form.password2.errors }}
+            <p>Please enter your details</p>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</div>
 {% endblock %}

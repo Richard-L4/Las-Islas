@@ -24,13 +24,25 @@
         </div>
 
         <div class="nav-links" id="nav-links">
-           <a href="{% url 'register' %}" class="{% if active_tab == 'register' %}active{% endif %}">Register</a>
-           <a href="{% url 'admin:index' %}">Admin</a>
+            <a href="{% url 'register' %}" class="{% if active_tab == 'register' %}active{% endif %}">Register</a>
+            <a href="{% url 'admin:index' %}">Admin</a>
         </div>
 
         <div class="hamburger" id="hamburger">&#9776;</div>
     </nav>
-  
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show position-fixed top-50 start-50 translate-middle mt-3"
+        role="alert" style="z-index: 1055">
+
+        {{ message }}
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+
     <main>
         {% block content %}
         <!-- Child templates will fill this area -->
