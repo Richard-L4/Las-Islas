@@ -41,8 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',        # these two go after Django's
+    'crispy_bootstrap5',   # own apps, before yours
     'las_islas_es',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'  # goes anywhere in settings.py
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

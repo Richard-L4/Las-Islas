@@ -92,6 +92,12 @@ nav a.active,
   color: yellow;
 }
 
+
+/* class for helper text in forms, it's found in the form.py not in htnl that's crispy forms */
+.form-text {
+  color: yellow;
+}
+
 .hamburger {
   display: none;
   font-size: 1.8rem;

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
 <h1 class="color">The Register Page</h1>
 <p>
@@ -10,11 +11,7 @@
     <section id="form">
         <form id="contact-form" method="post" action="{% url 'register' %}">
             {% csrf_token %}
-            {{ form.as_p }}
-            {{ form.username.errors }}
-            {{ form.email.errors }}
-            {{ form.password1.errors }}
-            {{ form.password2.errors }}
+            {{ form|crispy }}
             <p>Please enter your details</p>
             <button type="submit">Submit</button>
         </form>
