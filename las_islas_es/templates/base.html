@@ -24,6 +24,11 @@
         </div>
 
         <div class="nav-links" id="nav-links">
+            <a href="{% url 'login' %}" class="{% if active_tab == 'login' %}active{% endif %}">Login</a>
+            <a href="{% url 'logout' %}" class="{% if active_tab == 'logout' %}active{% endif %}">Logout</a>
+            {% if active_tab == 'confirm-logout' %}
+            <span class="active">Confirm Logout</span>
+            {% endif %}
             <a href="{% url 'register' %}" class="{% if active_tab == 'register' %}active{% endif %}">Register</a>
             <a href="{% url 'admin:index' %}">Admin</a>
         </div>

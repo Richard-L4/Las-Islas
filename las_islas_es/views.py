@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 
 
 # Create your views here.
@@ -23,3 +25,27 @@ def register(request):
 
     return render(request, 'register.html',
                   {'active_tab': 'register', 'form': form})
+
+
+def user_login(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, f"You are logged in as {user.username}")
+            return redirect('index')
+        else:
+            messages.error(request, f"Check login details are correct")
+    return render(request, 'login.html', {'active_tab': 'login', 'form': form})
+
+
+def user_logout(request):
+    return render(request, 'logout.html', {'active_tab': 'logout'})
+
+
+def confirm_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('index')
+    return render(request, 'confirm-logout.html', {'active_tab': 'confirm-logout'})
