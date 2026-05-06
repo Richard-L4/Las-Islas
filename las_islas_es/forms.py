@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from .models import Contact
 
 class RegisterForm(UserCreationForm):
     
@@ -56,3 +57,34 @@ class LoginForm(forms.Form):
     password = forms.CharField(label="Password", widget=forms.PasswordInput(
         attrs={'placeholder': 'Enter your password'}
     ))
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'phone', 'message']
+        labels = {
+            'name': 'Full name',
+            'email': 'Email',
+            'phone': 'Phone',
+            'message': 'Message',
+        }
+
+        widgets = {
+            'name': forms.TextInput(
+                attrs={'placeholder': 'Enter your name'}
+            ),
+            'email': forms.EmailInput(
+                attrs={'placeholder': 'Enter your email'}
+            ),
+            'phone': forms.TextInput(
+                attrs={'placeholder': 'Enter your phone number'}
+            ),
+            'message': forms.Textarea(
+                attrs={'placeholder': 'Enter your message'}
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['phone'].required = False

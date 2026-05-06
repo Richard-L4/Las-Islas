@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
@@ -8,6 +8,18 @@ from django.contrib.auth import login, logout
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
+
+
+def info(request):
+    form = ContactForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been submitted")
+            return redirect('index')
+        else:
+            messages.error(request, "Correct the areas below")
+    return render(request, 'info.html', {'active_tab': 'info', 'form': form})
 
 
 def register(request):
