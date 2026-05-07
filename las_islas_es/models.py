@@ -13,3 +13,14 @@ class Contact(models.Model):
     class Meta:
         verbose_name = 'Contact'
         verbose_name_plural = 'Contacts'
+
+
+class CardText(models.Model):
+    title = models.CharField(max_length=30)
+    content = models.TextField()
+    image_name = models.CharField(
+        max_length=30,
+        help_text="Enter file name (eg Cancun.jpg)",
+        default="default.jpg",
+        blank=True
+    )

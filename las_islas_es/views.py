@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegisterForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from .models import CardText
 
 
 # Create your views here.
@@ -61,3 +62,9 @@ def confirm_logout(request):
         logout(request)
         return redirect('index')
     return render(request, 'confirm-logout.html', {'active_tab': 'confirm-logout'})
+
+
+def destinations(request, pk):
+    card = get_object_or_404(CardText, pk=pk)
+    return render(request, 'destinations.html', {'active_tab': 'destinations',
+                                                 'card': card})

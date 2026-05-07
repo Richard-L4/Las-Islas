@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Las Islas | Destinations{% endblock %}</title>
+<p class="color">Welcome to the Destinations Page</p>
+<p>
+    <a class="color-return" href="{% url 'index' %}">Return Home</a>
+</p>
+<div class="cards-container">
+    <div class="card" data-url="{% url 'destinations' pk=card.id %}" onclick="window.location = this.dataset.url">
+        <img src="{% static 'images/' %}{{ card.image_name }}" alt="">
+        <p><strong>{{ card.title }}</strong></p>
+        <p>{{ card.content }}</p>
+        <a href="" class="read-more">Read more</a>
+    </div>
+</div>
+{% endblock%}
