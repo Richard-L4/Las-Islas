@@ -3,7 +3,7 @@ from .forms import RegisterForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import CardText
+from .models import CardText, Places
 
 
 # Create your views here.
@@ -68,3 +68,12 @@ def destinations(request, pk):
     card = get_object_or_404(CardText, pk=pk)
     return render(request, 'destinations.html', {'active_tab': 'destinations',
                                                  'card': card})
+
+
+def destinations_details(request, pk):
+    card = get_object_or_404(CardText, id=pk)
+    places = Places.objects.filter(card=card)
+    return render(request, 'destinations-details.html',
+                   {'active_tab': 'destinations-details',
+                    'card': card,
+                    'places': places,})

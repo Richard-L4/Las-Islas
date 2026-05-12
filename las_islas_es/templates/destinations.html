@@ -11,7 +11,7 @@
         <img src="{% static 'images/' %}{{ card.image_name }}" alt="">
         <p><strong>{{ card.title }}</strong></p>
         <p>{{ card.content }}</p>
-        <a href="" class="read-more">Read more</a>
+        <a href="{% url 'destinations-details' pk=card.id %}" class="read-more">Read more</a>
     </div>
 </div>
 {% endblock%}

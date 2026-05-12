@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Las Islas | Destinations-Details{% endblock %}</title>
+<h1 class="color">Welcome to the Destinations Page</h1>
+<p>
+    <a class="color-return" href="{% url 'index' %}">Return Home</a>
+</p>
+<div class="cards-container">
+    {% for place in places %}
+    <div class="card">
+        <img src="{% static 'images/' %}{{ place.image_name }}" alt="">
+        <h1 class="color">{{ place.destinations }}</h1>
+        <p>{{ place.content }}</p>
+    </div>
+    {% empty %}
+        <p class="color">Content comming soon.</p>
+    {% endfor %}
+</div>
+{% endblock %}

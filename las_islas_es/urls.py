@@ -9,4 +9,6 @@ urlpatterns = [
     path('confirm-logout/', views.confirm_logout, name='confirm-logout'),
     path('info/', views.info, name='info'),
     path('destinations/<int:pk>/', views.destinations, name='destinations'),
+    path('destinations-details/<int:pk>/',
+          views.destinations_details, name='destinations-details'),
 ]
