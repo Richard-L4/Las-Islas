@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
-from .models import Contact
+from .models import Contact, Comment
 
 class RegisterForm(UserCreationForm):
     
@@ -88,3 +88,19 @@ class ContactForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['phone'].required = False
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+        labels = {
+            'text': '',
+        }
+        widgets = {
+            'text': forms.Textarea(
+                attrs={'class': 'form-control',
+                       'rows': 3,
+                       'placeholder': 'Enter your comment here'}
+            )
+        }

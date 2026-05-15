@@ -12,9 +12,29 @@
         <img src="{% static 'images/' %}{{ place.image_name }}" alt="">
         <h1 class="color">{{ place.destinations }}</h1>
         <p>{{ place.content }}</p>
-    </div>
+
+        {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="place_id" value="{{ place.id }}">
+            {{ form.as_p }}
+            <button type="submit">Add comment</button>
+        </form>
+        {% endif %}
+
+        <h2 class="color">Comments</h2>
+        {% for comment in place.comments.all %}
+        <div class="comment">
+            <p><strong>{{ comment.user.username }}</strong> said:</p>
+            <p>{{ comment.text }}</p>
+            <small>{{ comment.created_at|date:"M d, Y H:i" }}</small>
+        </div>
+        {% endfor %}
+
+    </div>  {# closes .card #}
+
     {% empty %}
-        <p class="color">Content comming soon.</p>
+        <p class="color">Content coming soon.</p>
     {% endfor %}
-</div>
+</div>  {# closes .cards-container #}
 {% endblock %}

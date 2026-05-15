@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegisterForm, ContactForm
+from .forms import RegisterForm, ContactForm, CommentForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-from .models import CardText, Places
+from .models import CardText, Places, Comment
 
 
 # Create your views here.
@@ -73,7 +73,22 @@ def destinations(request, pk):
 def destinations_details(request, pk):
     card = get_object_or_404(CardText, id=pk)
     places = Places.objects.filter(card=card)
+
+    form = CommentForm(request.POST or None)
+    if request.method == 'POST':
+        place_id = request.POST.get('place_id')
+        place = get_object_or_404(Places, id=place_id)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.places = place
+            comment.save()
+            return redirect('destinations-details', pk=card.pk)
+        
+    comments = Comment.objects.filter(places__card=card).order_by('created_at')
     return render(request, 'destinations-details.html',
                    {'active_tab': 'destinations-details',
                     'card': card,
-                    'places': places,})
+                    'places': places,
+                    'comments': comments,
+                    'form': form})
